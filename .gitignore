@@ -169,5 +169,8 @@ cython_debug/
 
 # PyPI configuration file
 .pypirc
+<<<<<<< HEAD
 
 *.png
+=======
+>>>>>>> 8a7a66ed3db8708a969a1d69acea09d5cc8f1037
