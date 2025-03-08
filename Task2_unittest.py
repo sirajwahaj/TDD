@@ -1,6 +1,6 @@
 '''
     Student shall write their names here
-        1. Siraulhaq Wahaj
+        1. Sirajulhaq Wahaj
         2. Abdelhakim Mraihi
 '''
 

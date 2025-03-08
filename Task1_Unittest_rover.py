@@ -10,8 +10,8 @@ from Task1_Rover import rovar
 
 class test_string(unittest.TestCase):
     '''
-        _LOWER_CONSTANTS = "bcdfhjklmnpqrstvwxz"
-        _UPPER_CONSTANTS = "BCFGHJKLMNPQRSTVWXZ"
+        _LOWER_CONSTANTS = "bcdfhj klmnpqr stvwxz"
+        _UPPER_CONSTANTS = "BCFGHJ KLMNPQR STVWXZ"
         Swedish vowels = ['a', 'e', 'i', 'o', 'u', 'y', 'å', 'ä', 'ö']
 
         Write your TCs based on the lab instructions. One TC has been written below as an example
@@ -26,12 +26,69 @@ class test_string(unittest.TestCase):
         cls.rv= rovar() 
 
 
-    
+
 
     # You can continue writing your test cases here based on the assignment description
 
+    def test_enrove_lower_consonant(self):
+        for c in "bcdfghj":
+            self.assertEqual(self.rv.enrove(c), c + "o" + c)
+
+    def test_enrove_lower_consonant2(self):
+        for c in "klmnpqr":
+            self.assertEqual(self.rv.enrove(c), c + "o" + c)
+    def test_enrove_lower_consonant3(self):
+        for c in "stvwxz":
+            self.assertEqual(self.rv.enrove(c), c + "o" + c)       
+
     def test_enrove_multiple_uppercase_consonants(self):  
-        self.assertEqual(self.rv.enrove("DBCy"), "DODBOBCOCyoy")  
+        for c in "BCDFGHJ":
+            self.assertEqual(self.rv.enrove(c), c + "O" + c)
+
+    def test_enrove_multiple_uppercase_consonants1(self):  
+        for c in "KLMNPQR":
+            self.assertEqual(self.rv.enrove(c), c + "O" + c)
+
+    def test_enrove_multiple_uppercase_consonants2(self):  
+        for c in "STVWXZ":
+            self.assertEqual(self.rv.enrove(c), c + "O" + c)    
+
+#-----------------------------------------------------------------------------
+    def test_derove_uppercase_consonants(self):
+       
+        for c in "BCDFGHJ":
+            with self.subTest(c=c):
+                self.assertEqual(self.rv.derove(c + "O" + c), c)
+
+    def test_derove_uppercase_consonants1(self):
+    
+        for c in "KLMNPQR":
+            with self.subTest(c=c):
+                self.assertEqual(self.rv.derove(c + "O" + c), c)
+    
+    def test_derove_uppercase_consonants2(self):
+           
+        for c in "STVWXZ":
+            with self.subTest(c=c):
+                self.assertEqual(self.rv.derove(c + "O" + c), c)
+
+    def test_derove_lower_consonant(self):
+        for c in "bcdfghj":
+            with self.subTest(c=c):
+                self.assertEqual(self.rv.derove(c + "o" + c), c )
+
+    def test_derove_lower_consonant2(self):
+        for c in "klmnpqr":
+             with self.subTest(c=c):
+                self.assertEqual(self.rv.derove(c + "o" + c), c )
+    def test_derove_lower_consonant3(self):
+        for c in "stvwxz":
+             with self.subTest(c=c):
+                self.assertEqual(self.rv.derove(c + "o" + c), c )       
+
+      
+#-----------------------------------------------------------------------------     
+
     
     def test_enrove_vowel(self):
         self.assertEqual(self.rv.enrove("äpple"), "äpoppoplole")
@@ -92,11 +149,15 @@ class test_string(unittest.TestCase):
         self.assertEqual(self.rv.enrove('Hello123!'), 'HOHelollolo123!') # I just had to replace "o" with "O"
 
     def test_enrove_vowels(self):
-        # Swedish vowels + 'y' (lowercase and uppercase)
-        for vowel in ['a', 'e', 'i', 'o', 'u',  'å', 'ä', 'ö', 'A', 'E', 'I', 'O', 'U', 'Å', 'Ä', 'Ö']:
+        # Swedish vowels (lowercase and uppercase)
+        for vowel in ['a', 'e', 'i', 'o', 'u',  'å', 'ä', 'ö','y','Y', 'A', 'E', 'I', 'O', 'U', 'Å', 'Ä', 'Ö']:
             self.assertEqual(self.rv.enrove(vowel), vowel)
 
     # Test cases for derove (decoding) method
+
+    def test_derove_vowels(self):
+        for vowel in ['a', 'e', 'i', 'o', 'u', 'å', 'ä', 'ö', 'y', 'Y', 'A', 'E', 'I', 'O', 'U', 'Å', 'Ä', 'Ö']:
+            self.assertEqual(self.rv.derove(vowel), vowel)
 
     def test_derove_null(self):
         '''
@@ -110,23 +171,14 @@ class test_string(unittest.TestCase):
         '''
         self.assertEqual(self.rv.derove(''), '')
 
-    def test_derove_lowercase_consonant(self):
-        '''
-            Test decoding with a lowercase consonant.
-        '''
-        self.assertEqual(self.rv.derove('bob'), 'b')
-
+    
     def test_derove_uppercase_consonant(self):
         '''
             Test decoding with an uppercase consonant.
         '''
         self.assertEqual(self.rv.derove('BOB'), 'B')
 
-    def test_derove_vowel(self):
-        '''
-            Test decoding with a vowel (should remain unchanged).
-        '''
-        self.assertEqual(self.rv.derove('a'), 'a')
+    
 
     def test_derove_number(self):
         '''
